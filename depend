@@ -1,0 +1,3 @@
+global.o: global.cpp global.h
+main.o: main.cpp matrix.h vector.h global.h vector.hpp matrix.hpp \
+ complex.h complex.hpp kronecker.h
