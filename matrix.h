@@ -177,8 +177,8 @@ public:
 
   /*!
   * @brief subtracts two matrices
-  * @param[in] lhs vector
-  * @param[in] rhs vector
+  * @param[in] lhs matrix
+  * @param[in] rhs matrix
   * @pre must pass plusminusHandler() preconditions
   * @post returns result of matrix subtraction
   */
@@ -283,7 +283,7 @@ public:
   * @throw invalid_argument matrix col or row < 0
   */
   template<typename U>
-  friend matrix<U> operator*(const matrix<U>& lhs, const vector<U>& rhs);
+  friend vector<U> operator*(const matrix<U>& lhs, const vector<U>& rhs);
 
   /*!
   * @brief multiple matrix by vector

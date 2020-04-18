@@ -100,6 +100,13 @@ public:
   template<typename U>
   friend complex<U> operator*(const complex<U>& lhs, const complex<U>& rhs);
 
+  
+  template<typename U>
+  friend complex<U> operator*(const U& lhs, const complex<U>& rhs);
+
+  template<typename U>
+  friend complex<U> operator*(const complex<U>& lhs, const U& rhs);
+
   complex<T> operator+=(const complex<T>& rhs);
 
   complex<T> operator-=(const complex<T>& rhs);

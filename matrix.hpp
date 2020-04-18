@@ -236,30 +236,29 @@ matrix<T> operator*(const matrix<T>& lhs, const matrix<T>& rhs)
 //VECTOR MULTIPLICATION
 //Ax
 template<typename T>
-matrix<T> operator*(const matrix<T>& lhs, const vector<T>& rhs)
+vector<T> operator*(const matrix<T>& lhs, const vector<T>& rhs)
 {
   if (lhs.current_cols != rhs.size())
   {
     throw std::invalid_argument("left matrix col and right matrix row is unequal");
   }
   int temp_rows = lhs.current_rows;
-  int temp_cols = 1;
 
-  matrix<T> new_m(temp_rows, temp_cols);
+  vector<T> new_v(temp_rows);
 
 
   for (int i = 0; i < lhs.current_rows; i++)
   {
     for (int j = 0; j < 1; j++)
     {
-      new_m.grid[i][j] = 0;
+      new_v[i] = 0;
       for (int k = 0; k < lhs.current_cols; k++)
       {
-        new_m.grid[i][j] = new_m.grid[i][j] + (lhs.grid[i][k] * rhs[k]);
+        new_v[i] = new_v[i] + (lhs.grid[i][k] * rhs[k]);
       }
     }
   }
-  return new_m;
+  return new_v;
 }
 
 //xA

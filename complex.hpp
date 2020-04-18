@@ -45,17 +45,17 @@ template<typename T>
 ostream& operator << (ostream& os, const complex<T>& Obj)
 {
   cout.precision(8); // as requested
-  if (Obj.m_real == 0)
+  if (Obj.m_real != 0 && Obj.m_imaginary != 0)
   {
-    os << Obj.m_real;
+    os << Obj.m_real << " + " << Obj.m_imaginary << "i";    
   }
-  else if (Obj.m_imaginary == 0)
+  else if (Obj.m_real == 0 && Obj.m_imaginary != 0)
   {
-    os << Obj.m_imaginary<<"i";
+    os << Obj.m_imaginary << "i";    
   }
   else
   {
-    os << Obj.m_real<<" + "<<Obj.m_imaginary<<"i";
+    os << Obj.m_real;
   }
   return os;
 }
@@ -96,6 +96,19 @@ complex<T> operator*(const complex<T>& lhs, const complex<T>& rhs)
   return complex<T>((lhs.m_real * rhs.m_real) - (lhs.m_imaginary * rhs.m_imaginary),
     (lhs.m_real * rhs.m_imaginary) + (lhs.m_imaginary * rhs.m_real));
 }
+
+template<typename T>
+inline complex<T> operator*(const T& lhs, const complex<T>& rhs)
+{
+  return complex<T>((lhs * rhs.m_real),(lhs * rhs.m_imaginary));
+}
+
+template<typename T>
+complex<T> operator*(const complex<T>& lhs, const T& rhs)
+{
+  return complex<T>((lhs.m_real * rhs), (lhs.m_imaginary * rhs));
+}
+
 
 template<typename T>
 complex<T> complex<T>::operator+=(const complex<T>& rhs)

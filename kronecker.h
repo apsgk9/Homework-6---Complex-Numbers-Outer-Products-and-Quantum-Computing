@@ -12,9 +12,9 @@
  * A Kronecker library.
  */
 
-#ifndef QUREGISTER_H
-#define QUREGISTER_H
-
+#ifndef KRONECKER_H
+#define KRONECKER_H
+#include <iostream>
 
 #include "matrix.h"
 
@@ -52,6 +52,7 @@ matrix<T> kronecker(const matrix<T>& lhs, const matrix<T>& rhs)
     }
     nextrow++;
   }
+
   return new_m;
 }
 

@@ -20,6 +20,12 @@
 #include <string>
 #include <math.h> 
 #include <random>
+#include "complex.h"
+#include "kronecker.h"
+#include <numeric>
+#include <time.h>       /* time */
+#include "gate.h"
+#include "controlledgate.h"
 
 using std::string;
 using std::ostream;
@@ -33,10 +39,14 @@ template<int N>
 class quRegister
 {
 private:
-  vector<double> quBits;
+  vector<complex<double>> quBits;
+  int numSpaces;
   vector<int> collapsedState;
   bool hasCollapsed;
-  std::default_random_engine RNG;
+
+  std::random_device rd;  //Will be used to obtain a seed for the random number engine
+  std::mt19937 gen;
+  std::uniform_real_distribution<> dis;
 
   
 
@@ -47,11 +57,19 @@ public:
   */
   quRegister();
 
+  quRegister(std::initializer_list<bool> init_list);
+  quRegister(std::initializer_list < complex<double>> init_list);
   /*!
   * @bried copy constructor
   * @pre T = T must be defined
   */
   quRegister(const quRegister<N>& c);
+
+  void apply(const gate&);
+
+  void applycontrol(const int& target, const controlledgate& c_gate, const std::initializer_list<int>& c_bits);
+
+
 
 
   /*!
@@ -66,7 +84,7 @@ public:
   */
 
   template<int U>
-  friend ostream& operator << (ostream& os, const quRegister<U>& Obj);
+  friend ostream& operator << (ostream& os, quRegister<U>& Obj);
 
 };
 
