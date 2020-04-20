@@ -31,41 +31,34 @@ class gate : public virtual gateInterface, private gateData
 
 public:
 
-  gate(matrix<complex<double>> input_operator) : gateData(input_operator){}
+  gate(matrix<complex<double>> input_operator);
 
-  gate(const gate& input_gate) : gateData(input_gate.get()) {}
+  gate(const gate& input_gate);
+  /*!
+  * @brief  applies gate
+  * @param[in] state of the register for the gate to apply to
+  * @post returns state that the gate has applied to
+  */
+  virtual vector<complex<double>> operator()(const vector<complex<double>>& state) const;
 
-  virtual vector<complex<double>> operator()(const vector<complex<double>>& state) const
-  {
-    return gateData::operator()(state);
-  }
+  /*!
+  * @brief  get
+  * @post returns gate in terms of matrix
+  */
+  virtual matrix<complex<double>> get() const;
+  /*!
+  * @brief  conversion
+  * @post returns gate in terms of matrix
+  */
+  virtual operator matrix<complex<double>>() const;
 
-  //return matrix operator of the gate
-  virtual matrix<complex<double>> get() const
-  {
-    return gateData::get();
-  }
 
-  virtual operator matrix<complex<double>>() const
-  {
-    return gateData::get();
-  }
-  
-  static matrix<complex<double>> combine(const vector<gateInterface*>& gatesToCombine)
-  {
-    int size = gatesToCombine.size();
-    matrix<complex<double>> start(1, 1);
-    start(0, 0) = complex<double>(1, 0);
-    vector<matrix<complex<double>>> OperatorestoCombine(size);
-    for (int i = 0; i < size; i++)
-    {
-      OperatorestoCombine[i] = (gatesToCombine[i]->get());
-    }
-    auto combinedGates = std::accumulate(OperatorestoCombine.begin(), OperatorestoCombine.end(), start, kronecker<complex<double>>);
-    //std::cout << combinedGates; 
-    return combinedGates;
-  }
+  /*!
+  * @brief combines gates and returns a matrix for new gate
+  * @post returns matrix of that the new gate should use
+  */
+  static matrix<complex<double>> combine(const vector<gateInterface*>& gatesToCombine);
 };
 
-
+#
 #endif

@@ -279,7 +279,7 @@ public:
   * @pre T must define T = T (assignment) operator
   * @post mutiplies matrices and creates 
   * @post coloumn vector /(lhs.current_rows,1 column) matrix
-  * @post returns resulting matrix 
+  * @post returns resulting vector 
   * @throw invalid_argument matrix col or row < 0
   */
   template<typename U>

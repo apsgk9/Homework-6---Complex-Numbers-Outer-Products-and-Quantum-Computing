@@ -47,7 +47,15 @@ ostream& operator << (ostream& os, const complex<T>& Obj)
   cout.precision(8); // as requested
   if (Obj.m_real != 0 && Obj.m_imaginary != 0)
   {
-    os << Obj.m_real << " + " << Obj.m_imaginary << "i";    
+    if (Obj.m_imaginary > 0)
+    {
+      os << Obj.m_real << " + " << Obj.m_imaginary << "i";
+    }
+    else
+    {
+      os << Obj.m_real << " " << Obj.m_imaginary << "i";
+    }
+
   }
   else if (Obj.m_real == 0 && Obj.m_imaginary != 0)
   {

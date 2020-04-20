@@ -28,29 +28,31 @@ class gateData : public virtual gateInterface
 
 public:
 
-  gateData(matrix<complex<double>> input_operator) :m_operator(input_operator){}
+  /*!
+  * @brief  contstructor
+  * @param[in] input_operator gate that the matrix uses
+  * @post creates gate based on input_operator
+  */
+  gateData(matrix<complex<double>> input_operator);
    
-  //applies gate
-  virtual vector<complex<double>> operator()(const vector<complex<double>>& state) const
-  {
-    return (m_operator* state);
-  }
-  //gets gate
-  virtual matrix<complex<double>> get() const
-  {
-    return m_operator;
-  }
-  virtual operator matrix<complex<double>>() const
-  {
-    return m_operator;
-  }
+  /*!
+  * @brief  applies gate
+  * @param[in] state of the register for the gate to apply to
+  * @post returns state that the gate has applied to
+  */
+  virtual vector<complex<double>> operator()(const vector<complex<double>>& state) const;
+ 
+  /*!
+  * @brief  get
+  * @post returns gate in terms of matrix
+  */
+  virtual matrix<complex<double>> get() const;
 
-  
-  virtual gateInterface* clone() const
-  {
-    return new gateData(*this);
-  }
-
+  /*!
+  * @brief  conversion
+  * @post returns gate in terms of matrix
+  */
+  virtual operator matrix<complex<double>>() const;
 };
 
 

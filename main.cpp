@@ -85,7 +85,8 @@ void TestGATES()
   matrix< complex<double>> SMatrix = { { one ,zero,},
                                        { zero,i} };
 
-  matrix<complex<double>> h_m = { {-1,1},{1,-1} };
+  matrix<complex<double>> h_m = { {one,one},
+                                  {one,negative_one} };
   complex<double> multiplyBy = complex<double>((1 / std::sqrt(2)), 0);
   h_m = multiplyBy * h_m;
   gate H(h_m);
@@ -123,6 +124,8 @@ void TestGATES()
   register_3.applycontrol(1,controlNOT, {0});
   std::cout << "\nregister_3: " << register_3 << std::endl;
 }
+
+
 void driver()
 {
   complex<double> i(0.0, 1.0);
@@ -174,8 +177,8 @@ void driver()
 
 
   //vector< complex<double>> state = { zero,zero,zero,zero,one,zero,zero,zero };
-
-  quRegister<3> grover_register= { one,zero,zero,zero,zero,zero,zero,zero };
+  
+  quRegister<3> grover_register = { false,false,false };
 
   grover_register.apply(tripleH);
   grover_register.applycontrol(0, controlZ, { 2 });
@@ -187,7 +190,7 @@ void driver()
   grover_register.apply(tripleH);
   std::cout << grover_register;
 
-  //----------
+  //-----------------------------------------
   vector<gateInterface*> hmiddletocombine = { &I,&H,&I };
   vector<gateInterface*> htopcombine = { &I,&I,&H }; //ADD with MSB on the left
 
@@ -196,7 +199,7 @@ void driver()
   controlledgate controlS(S);
   controlledgate controlT(T);
 
-  quRegister<3> shor_register = { one,zero,zero,zero,zero,zero,zero,zero };
+  quRegister<3> shor_register = { false,false,false };
   shor_register.apply(tripleH);
   shor_register.apply(hMiddle);
   shor_register.applycontrol(0, controlS, { 1 });
@@ -204,42 +207,20 @@ void driver()
   shor_register.applycontrol(2, controlS, { 1 });
   shor_register.applycontrol(2, controlS, { 0 });
   std::cout << shor_register;
-  
 }
 void quRegisterTest()
 {
-  /*
-  complex<double> a(1 / std::sqrt(2));
-  quRegister<3> r = { a,a,a,a,a,a,a,a };
-  cout << r;
-  matrix<complex<double>> h_m = { {1,1},{1,-1} };
-  complex<double> multiplyBy = complex<double>((1 / std::sqrt(2)), 0);
-  h_m = multiplyBy * h_m;
-  gate Hadamard(h_m);
-  cout << h_m << endl;
-  */
-  /*
-  gate Hadamard(h_m);
-  //vector<gateInterface*> htocombine = { &Hadamard,&Hadamard,&Hadamard };
-  matrix<complex<double>> h_m2 = { {0,0},{0,1} };
-  matrix<complex<double>> h_m3 = { {1,0},{0,0} };
-  gate test1(h_m2);
-  gate test2(h_m3);
-  vector<gateInterface*> htocombine = { &test1,&test2 };
-  matrix<complex<double>> h_mthree = gate::combine(htocombine);*/
- 
-  
   complex<double> o(1.0, 0.0);
   complex<double> z(0.0, 0.0);
   matrix< complex<double>> NotMatrix = { { z,o, },
                                          { o,z} };
   gate notGate(NotMatrix);
   controlledgate controlnotGate(notGate);
-  vector< complex<double>> state = { z,z,z,z,z,z,z,o};
-  auto final = controlnotGate(0, state, { 2 });
-  std::cout << final;
+  vector< complex<double>> state = { z,z,z,z,z,o,z,z};
+  cout << "\nBefore: " << state << std::endl;
   
-
+  state = controlnotGate(2, state, { 0 });
+  cout << "\nAfter: " << state << std::endl;
 }
 
 void complextest()
@@ -261,7 +242,6 @@ void complextest()
   c2 *= c3;
   print((c2), "c2 *= c3");
   print((c*5.0), "c*5");
-
 }
 template<typename T>
 void print(complex<T> c, string name)
@@ -285,6 +265,5 @@ void matrixTest()
   vector<int> C2 = { 0,2,0 };
   cout << "\nVectorMult:\n" << C*C2;
   cout << "\nVectorMult:\n" << C2* C3;
-
-  
+  matrix<int> CTEST = { { 0, 5, 2,5 }, { 6, 7, 3 } };  
 }

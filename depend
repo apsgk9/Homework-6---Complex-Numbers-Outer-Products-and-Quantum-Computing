@@ -1,4 +1,12 @@
+controlledgate.o: controlledgate.cpp controlledgate.h gate.h \
+ gateInterface.h matrix.h vector.h global.h vector.hpp matrix.hpp \
+ complex.h complex.hpp gateData.h kronecker.h kronecker.hpp
+gate.o: gate.cpp gate.h gateInterface.h matrix.h vector.h global.h \
+ vector.hpp matrix.hpp complex.h complex.hpp gateData.h kronecker.h \
+ kronecker.hpp
+gateData.o: gateData.cpp gateData.h gateInterface.h matrix.h vector.h \
+ global.h vector.hpp matrix.hpp complex.h complex.hpp
 global.o: global.cpp global.h
 main.o: main.cpp matrix.h vector.h global.h vector.hpp matrix.hpp \
- complex.h complex.hpp kronecker.h quRegister.h gate.h gateInterface.h \
- gateData.h controlledgate.h quRegister.hpp
+ complex.h complex.hpp kronecker.h kronecker.hpp quRegister.h gate.h \
+ gateInterface.h gateData.h controlledgate.h quRegister.hpp

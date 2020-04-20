@@ -18,43 +18,18 @@
 
 #include "matrix.h"
 
+ /*!
+ * @brief KroneckerProduct
+ * @param[in] lhs matrix
+ * @param[in] rhs matrix
+ * @pre T * T (multiplication) defined
+ * @pre T = T (assingment) defined
+ * @pre either matrices cannot be empty
+ * @post returns a matrix of kronecker product lhs and rhs
+ */
 template<typename T>
-matrix<T> kronecker(const matrix<T>& lhs, const matrix<T>& rhs)
-{
-  int rowa = lhs.rows();
-  int rowb = rhs.rows();
-  int cola = lhs.cols();
-  int colb = rhs.cols();
-  matrix<T> new_m = matrix<T>(rowa * rowb,
-    cola * colb);
-  int nextrow = 0;
-  for (int i = 0; i < rowa; i++)
-  {
-    // k loops till rowb 
-    for (int k = 0; k < rowb; k++)
-    {
-      int x = 0;
-      // j loops till cola 
-      for (int j = 0; j < cola; j++)
-      {
+matrix<T> kronecker(const matrix<T>& lhs, const matrix<T>& rhs);
 
-        // l loops till colb 
-        for (int l = 0; l < colb; l++)
-        {
-
-          // Each element of matrix A is 
-          // multiplied by whole Matrix B 
-          // resp and stored as Matrix C 
-          new_m(k + nextrow * 2, x) = lhs(i, j) * rhs(k, l);
-          x++;
-        }
-      }
-    }
-    nextrow++;
-  }
-
-  return new_m;
-}
-
+#include "kronecker.hpp"
 
 #endif

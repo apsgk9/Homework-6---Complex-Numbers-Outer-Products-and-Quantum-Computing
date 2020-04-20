@@ -26,15 +26,27 @@ class gateInterface
 {
 
 public:
-  //applies gate
-  virtual vector<complex<double>> operator()(const vector<complex<double>>& state) const = 0 ;
 
-  //gets gate
+  /*!
+  * @brief pure virtual function
+  * @param[in] state of the register for the gate to apply to
+  * @post returns state that the gate has applied to
+  */
+
+  virtual vector<complex<double>> operator()(const vector<complex<double>>& state) const = 0 ;
+  /*!
+  * @brief pure virtual function get function
+  * @post should return matrix of the gate
+  */
   virtual matrix<complex<double>> get() const = 0;
 
+  /*!
+  * @brief pure virtual function conversion
+  * @post should return matrix of the gate
+  */
   virtual operator matrix<complex<double>>() const = 0;
 
-  virtual gateInterface* clone() const = 0;
+  //virtual gateInterface* clone() const = 0;
 
 
 };
